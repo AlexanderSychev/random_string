@@ -1,6 +1,7 @@
 package random_string
 
 import (
+	"fmt"
 	"math/rand"
 	"strings"
 )
@@ -11,6 +12,21 @@ type Generator struct {
 	charset []rune
 	// Length of generated string
 	length int
+}
+
+// String returns string representation of Generator instance. Useful for logging.
+func (g Generator) String() string {
+	var sCharset strings.Builder
+	for i, r := range g.charset {
+		if i != 0 {
+			sCharset.WriteString(", ")
+		}
+		sCharset.WriteString("'")
+		sCharset.WriteRune(r)
+		sCharset.WriteString("'")
+	}
+
+	return fmt.Sprintf("Generator(length = %d characters, charset = [%s])", g.length, sCharset.String())
 }
 
 // Generate creates string with random characters
